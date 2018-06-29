@@ -9,14 +9,12 @@ Template.accounts.events({
       product: ['transactions'],
       key: Meteor.settings.public.PLAID_PUBLIC_KEY,
       onSuccess: function(public_token) {
-        console.log(public_token);
         Meteor.call('accounts.get_access_token', public_token, function(err, res) {
-          if (err) console.log(err);
-          console.log(res);
+          if (err) {console.log(err); return;}
+          window.location = '/transactions';
         });
       },
     });
-
     handler.open();
   }
 });

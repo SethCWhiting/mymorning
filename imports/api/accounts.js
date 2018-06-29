@@ -14,7 +14,7 @@ Meteor.methods({
       plaid.environments[PLAID_ENV]
     );
 
-    client.exchangePublicToken(PUBLIC_TOKEN, function(error, tokenResponse) {
+    client.exchangePublicToken(PUBLIC_TOKEN, Meteor.bindEnvironment(function(error, tokenResponse) {
       if (error != null) {
         var msg = 'Could not exchange public_token!';
         console.log(msg + '\n' + JSON.stringify(error));
@@ -22,10 +22,13 @@ Meteor.methods({
       }
       ACCESS_TOKEN = tokenResponse.access_token;
       ITEM_ID = tokenResponse.item_id;
-      console.log('Access Token: ' + ACCESS_TOKEN);
-      console.log('Item ID: ' + ITEM_ID);
-      return 'ACCESS_TOKEN';
-    });
+      return Accounts.insert({
+        "owner": Meteor.userId(),
+        "access_token": ACCESS_TOKEN,
+        "item_id": ITEM_ID,
+        "createdAt": new Date()
+      });
+    }));
   }
 
 });
