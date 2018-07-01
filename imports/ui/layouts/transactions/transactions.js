@@ -5,4 +5,11 @@ Template.transactions.onCreated(function() {
     if (err) {console.log(err); return;}
     console.log(res);
   });
+  Meteor.subscribe("transactions");
+});
+
+Template.transactions.helpers({
+  transactions: function() {
+    return Transactions.find().fetch();
+  }
 });

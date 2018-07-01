@@ -1,3 +1,12 @@
 <template name="transactions">
   <h1>transactions</h1>
+  <table>
+    {{#each transactions}}
+      <tr>
+        <td>{{ name }}</td>
+        <td>${{ amount }}</td>
+        <td>{{ date }}</td>
+      </tr>
+    {{/each}}
+  </table>
 </template>
