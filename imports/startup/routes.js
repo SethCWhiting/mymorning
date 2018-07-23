@@ -15,6 +15,10 @@ Router.route('/', function () {
   }
 });
 
+Router.route('/mail/', function () {
+  Meteor.call('renderEmail');
+});
+
 Router.route('/home/', {name: 'home'});
 Router.route('/accounts/', {name: 'accounts'});
 Router.route('/transactions/', {name: 'transactions'});
