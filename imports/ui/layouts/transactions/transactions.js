@@ -14,6 +14,6 @@ Template.transactions.onRendered(function() {
 
 Template.transactions.helpers({
   transactions: function() {
-    return Transactions.find({'account_owner': Meteor.userId()}).fetch();
+    return Transactions.find().fetch();
   }
 });
