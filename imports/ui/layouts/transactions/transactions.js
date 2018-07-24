@@ -6,7 +6,6 @@ Template.transactions.onCreated(function() {
 
 Template.transactions.onRendered(function() {
   if (!Transactions.find().count()) {
-    console.log(Transactions.find().fetch());
     Meteor.call('transactions.get_transactions', Meteor.userId(), function(err, res) {
       if (err) {console.log(err); return;}
     });
@@ -15,6 +14,6 @@ Template.transactions.onRendered(function() {
 
 Template.transactions.helpers({
   transactions: function() {
-    return Transactions.find().fetch();
+    return Transactions.find({'account_owner': Meteor.userId()}).fetch();
   }
 });
