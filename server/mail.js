@@ -1,6 +1,13 @@
 SSR.compileTemplate('emailText', Assets.getText('mail.html'));
 
 Template.emailText.helpers({
+  // transactions: function() {
+  //   var date = moment().subtract(1, 'days').format('YYYY-MM-DD');
+  //   return Transactions.find({
+  //     "account_owner": Meteor.userId(),
+  //     "date": date
+  //   });
+  // },
   time: function() {
     return new Date().toString();
   },

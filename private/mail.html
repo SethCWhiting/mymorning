@@ -1,2 +1,11 @@
 Hello {{username}}, <br>
 Now time is: {{time}}
+<table>
+  {{#each transactions}}
+    <tr>
+      <td>{{ name }}</td>
+      <td>${{ amount }}</td>
+      <td>{{ date }}</td>
+    </tr>
+  {{/each}}
+</table>
