@@ -1,29 +1,24 @@
 SSR.compileTemplate('emailText', Assets.getText('mail.html'));
 
-Template.emailText.helpers({
-  // transactions: function() {
-  //   var date = moment().subtract(1, 'days').format('YYYY-MM-DD');
-  //   return Transactions.find({
-  //     "account_owner": Meteor.userId(),
-  //     "date": date
-  //   });
-  // },
-  time: function() {
-    return new Date().toString();
-  },
-  username: function() {
-    return Meteor.user().profile.username;
-  }
-});
-
 Meteor.methods({
-  'renderEmail'() {
-    var user = Meteor.user().emails[0].address;
-    var seth = 'seth@mymorning.money';
-    var subject = 'Your Daily Budget Insights';
-    var html = SSR.render('emailText');
-    console.log(html);
-    Meteor.call('sendEmail', user, seth, subject, html);
+  'renderEmails'() {
+    var users = Meteor.users.find();
+    users.forEach(function(user) {
+      var to = user.emails[0].address;
+      var from = 'MyMorning.money<seth@mymorning.money>';
+      var subject = 'Your Daily Budget Insights';
+      var date = moment().subtract(1, 'days').format('YYYY-MM-DD');
+      var transactions = Transactions.find({
+        "account_owner": user._id,
+        "date": date
+      });
+      var html = SSR.render('emailText', {
+        username: user.profile.username,
+        time: new Date().toString(),
+        transactions: transactions
+      });
+      Meteor.call('sendEmail', to, from, subject, html);
+    });
   },
   'sendEmail'(to, from, subject, html) {
     // Make sure that all arguments are strings.

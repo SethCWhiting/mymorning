@@ -27,3 +27,4 @@ twbs:bootstrap
 email
 check
 meteorhacks:ssr
+percolate:synced-cron

@@ -1,0 +1,8 @@
+body {
+  background-color: $brand-white;
+  color: $brand-black;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: lighten($brand-white, 1);
+}
