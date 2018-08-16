@@ -1,4 +1,19 @@
 <template name="accounts">
   <button class="btn btn-default">Link Account</button>
-  <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Owner</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each accounts}}
+        <tr>
+          <td>{{ _id }}</td>
+          <td>{{ owner }}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
 </template>

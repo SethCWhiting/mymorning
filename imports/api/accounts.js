@@ -1,5 +1,9 @@
 var plaid = require('plaid');
 
+Meteor.publish('accounts', function() {
+  return Accounts.find({});
+});
+
 Meteor.methods({
   'accounts.get_access_token'(PUBLIC_TOKEN) {
     var PLAID_CLIENT_ID = Meteor.settings.private.PLAID_CLIENT_ID;
