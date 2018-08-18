@@ -22,9 +22,10 @@ iron:router
 fourseven:scss
 session
 accounts-password
-ian:accounts-ui-bootstrap-3
 twbs:bootstrap
 email
 check
 meteorhacks:ssr
 percolate:synced-cron
+useraccounts:bootstrap
+aldeed:template-extension

@@ -11,7 +11,10 @@ Template.home.helpers({
 });
 
 Template.home.events({
-  'click button'(event, instance) {
+  'click #at-signIn'() {
+    window.location = '/login';
+  },
+  'click #home-plaid-link-account'(event, instance) {
     var handler = Plaid.create({
       apiVersion: 'v2',
       clientName: 'MyMorning.money',
@@ -21,6 +24,7 @@ Template.home.events({
       onSuccess: function(public_token) {
         Meteor.call('accounts.get_access_token', public_token, function(err, res) {
           if (err) {console.log(err); return;}
+          Session.set('showRegisteredModal', true);
         });
       },
     });

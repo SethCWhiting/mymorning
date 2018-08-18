@@ -1,14 +1,32 @@
 <template name="home">
-  {{#if currentUser}}
-    {{#if hasAccount}}
-      <h1>Has</h1>
-      <a href="/accounts">Link to accounts</a>
-      <a href="/transactions">Link to transactions</a>
-    {{else}}
-      <h1>Doesn't Has</h1>
-      <button class="btn btn-default">Link Account</button>
-    {{/if}}
-  {{else}}
-    <h1>SIGN UP</h1>
-  {{/if}}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-3">
+        <div class="panel">
+          {{#if currentUser}}
+            {{#if hasAccount}}
+              {{> accounts}}
+            {{else}}
+              <div class="panel-heading text-center">
+                <h5>Step 2 of 2</h5>
+                <h1>Link a Bank Account</h1>
+              </div>
+              <div class="panel-body">
+                <button class="btn btn-block" id="home-plaid-link-account">Link Account</button>
+              </div>
+            {{/if}}
+          {{else}}
+            <div class="panel-heading text-center">
+              <h5>Step 1 of 2</h5>
+              <h1>Create a User Account</h1>
+            </div>
+            <div class="panel-body">
+              {{> atForm state='signUp'}}
+            </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+  {{> registeredModal}}
 </template>

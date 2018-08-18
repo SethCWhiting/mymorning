@@ -1,0 +1,48 @@
+#at-btn,
+#home-plaid-link-account {
+  margin-left: 15px;
+  margin-right: 15px;
+  width: calc(100% - 30px);
+  background-color: $brand-primary;
+  color: white;
+  border-color: $brand-primary;
+  &:hover,
+  &:focus {
+    background-color: darken($brand-primary, 20);
+    color: white;
+    border-color: darken($brand-primary, 20);
+  }
+}
+.at-pwd-form {
+  fieldset {
+    margin-left: -15px;
+    margin-right: -15px;
+    width: calc(100% + 30px);
+  }
+  .form-group {
+    padding-left: 15px;
+    padding-right: 15px;
+    &:not(:first-of-type) {
+      @media (min-width: 768px) {
+        width: 50%;
+        float: left;
+      }
+    }
+  }
+}
+.at-signin-link,
+.at-signup-link {
+  text-align: center;
+  margin-bottom: 0;
+}
+.login .form-group {
+  width: 100% !important;
+}
+.at-form,
+.at-pwd-form > form {
+  margin: 0;
+  padding-top: 0;
+}
+#plaid-link-account {
+  margin-bottom: 20px;
+}

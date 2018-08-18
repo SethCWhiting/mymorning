@@ -3,9 +3,20 @@ import '/imports/ui/components/header/header.js';
 import '/imports/ui/layouts/home/home.js';
 import '/imports/ui/layouts/accounts/accounts.js';
 import '/imports/ui/layouts/transactions/transactions.js';
+import '/imports/ui/layouts/login/login.js';
+
+import '/imports/ui/partials/registered-modal/registered-modal.js';
 
 Router.route('/', function () {
   this.render('home');
+});
+
+Router.route('/login', function () {
+  this.render('login');
+});
+
+Router.route('/logout', function () {
+  Meteor.logout();
 });
 
 Router.route('/mail/', function () {
@@ -17,8 +28,8 @@ Router.route('/accounts/', {name: 'accounts'});
 Router.route('/transactions/', {name: 'transactions'});
 
 Router.onBeforeAction(function () {
-  var current_route = Router.current().route.getName() ? Router.current().route.getName() : 'transactions';
-  if (!Meteor.user() && window.location.pathname != '/') {
+  var current_route = Router.current().route.getName() ? Router.current().route.getName() : 'home';
+  if (!Meteor.user() && window.location.pathname != '/' && window.location.pathname != '/login') {
     window.location = '/';
   } else {
     this.next();

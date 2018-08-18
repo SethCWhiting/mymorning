@@ -4,6 +4,14 @@ Template.accounts.onCreated(function() {
   Meteor.subscribe('accounts');
 });
 
+Template.accounts.onRendered(function() {
+  if (Session.get('showRegisteredModal')) {
+    $('#registered-modal').modal('show').on('hide.bs.modal', function (e) {
+      Session.set('showRegisteredModal', false);
+    });
+  }
+});
+
 Template.accounts.helpers({
   accounts() {
     return Accounts.find({'owner': Meteor.userId()}).fetch();
@@ -11,7 +19,8 @@ Template.accounts.helpers({
 });
 
 Template.accounts.events({
-  'click button'(event, instance) {
+  'click #accounts-plaid-link-account'(event, instance) {
+    event.preventDefault();
     var handler = Plaid.create({
       apiVersion: 'v2',
       clientName: 'MyMorning.money',
