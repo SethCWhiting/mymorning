@@ -14,7 +14,7 @@ Template.accounts.onRendered(function() {
 
 Template.accounts.helpers({
   accounts() {
-    return Accounts.find({'owner': Meteor.userId()}).fetch();
+    return Accounts.find({'account_owner': Meteor.userId()}).fetch();
   }
 });
 

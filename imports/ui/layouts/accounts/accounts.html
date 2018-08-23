@@ -13,15 +13,15 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Owner</th>
+              <th>Name</th>
+              <th>Balance</th>
             </tr>
           </thead>
           <tbody>
             {{#each accounts}}
               <tr>
-                <td>{{ _id }}</td>
-                <td>{{ owner }}</td>
+                <td>{{ official_name }}</td>
+                <td class="text-right">${{ balances.current }}</td>
               </tr>
             {{/each}}
           </tbody>

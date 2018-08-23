@@ -1,12 +1,12 @@
 import './home.html';
 
 Template.home.onCreated(function() {
-  Meteor.subscribe('accounts');
+  Meteor.subscribe('tokens');
 });
 
 Template.home.helpers({
   hasAccount() {
-    return Accounts.find({'owner': Meteor.userId()}).count();
+    return Tokens.find({'owner': Meteor.userId()}).count();
   }
 });
 
