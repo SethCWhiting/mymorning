@@ -2,6 +2,7 @@ import './accounts.html';
 
 Template.accounts.onCreated(function() {
   Meteor.subscribe('accounts');
+  Meteor.subscribe('institutions');
 });
 
 Template.accounts.onRendered(function() {
@@ -13,8 +14,12 @@ Template.accounts.onRendered(function() {
 });
 
 Template.accounts.helpers({
-  accounts() {
+  allAccounts() {
     return Accounts.find({'account_owner': Meteor.userId()}).fetch();
+  },
+  institution(item_id) {
+    var institution = Institutions.findOne({'item_id': item_id});
+    return institution && institution.institution && institution.institution.name;
   }
 });
 

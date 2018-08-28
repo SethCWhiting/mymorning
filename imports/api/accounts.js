@@ -35,9 +35,7 @@ Meteor.methods({
       Meteor.call('accounts.get_account', ACCESS_TOKEN, function(err, res) {
         if (err) { console.log(err); return; }
       });
-      Meteor.call('accounts.get_item', ACCESS_TOKEN, function(err, res) {
-        if (err) { console.log(err); return; }
-      });
+      return;
     }));
   },
   'accounts.get_account'() {
@@ -47,44 +45,34 @@ Meteor.methods({
         console.log(msg + '\n' + JSON.stringify(error));
         return;
       }
-      authResponse.accounts.forEach(function(account) {
-        Accounts.insert({
-          "account_owner": Meteor.userId(),
-          "account_id": account.account_id,
-          "balances": {
-            "available": account.balances.available,
-            "current": account.balances.current,
-            "iso_currency_code": account.balances.iso_currency_code,
-            "limit": account.balances.limit,
-            "unofficial_currency_code": account.balances.unofficial_currency_code
-          },
-          "mask": account.mask,
-          "name": account.name,
-          "official_name": account.official_name,
-          "subtype": account.subtype,
-          "type": account.type,
-          "createdAt": new Date()
-        });
+      Accounts.insert({
+        "account_owner": Meteor.userId(),
+        "accounts": authResponse.accounts,
+        "item": authResponse.item,
+        "numbers": authResponse.numbers,
+        "createdAt": new Date()
+      });
+      Meteor.call('accounts.get_institution', authResponse.item.institution_id, function(err, res) {
+        if (err) { console.log(err); return; }
       });
     }));
+    return;
   },
-  'accounts.get_item'() {
-    client.getItem(ACCESS_TOKEN, function(error, itemResponse) {
+  'accounts.get_institution'(institution_id) {
+    console.log(institution_id);
+    client.getInstitutionById(institution_id, Meteor.bindEnvironment(function(error, instRes) {
       if (error != null) {
         console.log(JSON.stringify(error));
         return;
       }
-      console.log(itemResponse);
-      client.getInstitutionById(itemResponse.item.institution_id, function(err, instRes) {
-        if (err != null) {
-          var msg = 'Unable to pull institution information from the Plaid API.';
-          console.log(msg + '\n' + JSON.stringify(error));
-          return;
-        } else {
-          console.log(instRes);
-        }
+      Institutions.insert({
+        "account_owner": Meteor.userId(),
+        "institution": instRes.institution,
+        "item_id": ITEM_ID,
+        "createdAt": new Date()
       });
-    });
+    }));
+    return;
   }
 
 });

@@ -10,22 +10,25 @@
     </div>
     <div class="row">
       <div class="col-sm-12">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Balance</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each accounts}}
+        {{#each allAccounts}}
+          <h4>{{ institution item.item_id }}</h4>
+          <table class="table table-striped">
+            <thead>
               <tr>
-                <td>{{ official_name }}</td>
-                <td class="text-right">${{ balances.current }}</td>
+                <th>Name</th>
+                <th>Balance</th>
               </tr>
-            {{/each}}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {{#each accounts}}
+                <tr>
+                  <td>{{ official_name }}</td>
+                  <td class="text-right">${{ balances.current }}</td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        {{/each}}
       </div>
     </div>
   </div>
