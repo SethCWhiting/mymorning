@@ -6,7 +6,7 @@ Meteor.publish('transactions', function(id) {
 
 Meteor.methods({
   'transactions.get_transactions'(owner) {
-    var accounts = Accounts.find({"owner": owner});
+    var accounts = Tokens.find({"owner": owner});
     accounts.forEach(function(account) {
       var ACCESS_TOKEN = account.access_token;
       console.log(ACCESS_TOKEN);

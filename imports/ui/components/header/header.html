@@ -12,6 +12,11 @@
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
+          {{#if hasToken}}
+            <li>
+              <a href="/transactions">Transactions</a>
+            </li>
+          {{/if}}
           {{#if currentUser}}
             <li>
               <a href="/logout">Logout</a>
