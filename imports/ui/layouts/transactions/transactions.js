@@ -17,3 +17,9 @@ Template.transactions.helpers({
     return Transactions.find().fetch();
   }
 });
+
+Template.transactions.events({
+  'click tbody tr'() {
+    console.log(this);
+  }
+});

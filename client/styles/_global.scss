@@ -6,3 +6,7 @@ body {
 .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: lighten($brand-white, 1);
 }
+
+.add-comma:not(:last-child):after {
+  content: ' >';
+}

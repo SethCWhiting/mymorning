@@ -4,12 +4,6 @@ Template.home.onCreated(function() {
   Meteor.subscribe('tokens');
 });
 
-// Template.home.helpers({
-//   hasToken() {
-//     return Tokens.find({'owner': Meteor.userId()}).count();
-//   }
-// });
-
 Template.home.events({
   'click #at-signIn'() {
     window.location = '/login';
