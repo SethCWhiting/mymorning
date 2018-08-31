@@ -6,8 +6,8 @@ Meteor.publish('transactions', function(id) {
 
 Meteor.methods({
   'transactions.get_transactions'(owner) {
-    var accounts = Tokens.find({"owner": owner});
-    accounts.forEach(function(account) {
+    var tokens = Tokens.find({"owner": owner});
+    tokens.forEach(function(account) {
       var ACCESS_TOKEN = account.access_token;
       console.log(ACCESS_TOKEN);
       var PLAID_CLIENT_ID = Meteor.settings.private.PLAID_CLIENT_ID;
@@ -33,7 +33,18 @@ Meteor.methods({
           console.log(JSON.stringify(error));
           return error;
         }
+        console.log(transactionsResponse);
         transactionsResponse.transactions.forEach(function(transaction) {
+          return Categories.update({
+            "category_id": transaction.category_id
+          }, {
+            "category": transaction.category,
+            "category_id": transaction.category_id,
+            "createdAt": new Date()
+          }, {
+            "upsert": true
+          });
+
           return Transactions.update({
             "transaction_id": transaction.transaction_id
           }, {
@@ -75,8 +86,6 @@ Meteor.methods({
           });
         });
 
-        // console.log(transactionsResponse.transactions);
-        // return transactionsResponse.transactions;
       }));
     });
   },

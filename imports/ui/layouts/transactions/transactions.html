@@ -21,9 +21,13 @@
                   <tr>
                     <td>{{ name }}</td>
                     <td>
-                      {{#each category}}
-                        <span class="add-comma">{{ this }}</span>
-                      {{/each}}
+                      <select name="category">
+                        {{#each categories}}
+                          <option value="category_id">
+                            {{ cleanCategory category }}
+                          </option>
+                        {{/each}}
+                      </select>
                     </td>
                     <td>{{ formatMoney amount }}</td>
                     <td>{{ formatDate date }}</td>
