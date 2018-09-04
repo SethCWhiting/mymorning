@@ -23,7 +23,7 @@
                     <td>
                       <select name="category">
                         {{#each categories}}
-                          <option value="category_id">
+                          <option value="{{ category_id }}" selected={{ selected_id ../category_id category_id}}>
                             {{ cleanCategory category }}
                           </option>
                         {{/each}}
@@ -40,4 +40,5 @@
       </div>
     </div>
   </div>
+  {{> categoryModal }}
 </template>

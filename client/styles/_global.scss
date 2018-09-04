@@ -7,6 +7,11 @@ body {
   background-color: lighten($brand-white, 1);
 }
 
-.add-comma:not(:last-child):after {
-  content: ' >';
-}
+// select:not(:hover) {
+//   border: none;
+//   appearance: none;
+//   -webkit-appearance:none;
+//   background: transparent;
+//   outline: none;
+//   transition: 0.2s ease;
+// }

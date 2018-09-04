@@ -6,6 +6,7 @@ import '/imports/ui/layouts/transactions/transactions.js';
 import '/imports/ui/layouts/login/login.js';
 
 import '/imports/ui/partials/registered-modal/registered-modal.js';
+import '/imports/ui/partials/category-modal/category-modal.js';
 
 Router.route('/', function () {
   this.render('home');

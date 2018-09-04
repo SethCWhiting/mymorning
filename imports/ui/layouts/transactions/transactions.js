@@ -20,13 +20,21 @@ Template.transactions.helpers({
   categories: function() {
     return Categories.find().fetch();
   },
+  selected_id: function(outer_id, inner_id) {
+    if (outer_id == inner_id) {
+      return true;
+    }
+  },
   cleanCategory: function(array) {
     return array.join(' > ');
   }
 });
 
 Template.transactions.events({
-  'click tbody tr'() {
-    console.log(this);
+  'change select'(e) {
+    console.log(e.currentTarget.value);
+    Session.set('selected_name', this.name);
+    Session.set('selected_category', e.currentTarget.selectedOptions[0].label);
+    $('#category-modal').modal('show');
   }
 });
