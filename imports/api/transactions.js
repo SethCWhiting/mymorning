@@ -9,7 +9,6 @@ Meteor.methods({
     var tokens = Tokens.find({"owner": owner});
     tokens.forEach(function(account) {
       var ACCESS_TOKEN = account.access_token;
-      console.log(ACCESS_TOKEN);
       var PLAID_CLIENT_ID = Meteor.settings.private.PLAID_CLIENT_ID;
       var PLAID_SECRET = Meteor.settings.private.PLAID_SECRET;
       var PLAID_PUBLIC_KEY = Meteor.settings.public.PLAID_PUBLIC_KEY;
@@ -33,7 +32,6 @@ Meteor.methods({
           console.log(JSON.stringify(error));
           return error;
         }
-        console.log(transactionsResponse);
         transactionsResponse.transactions.forEach(function(transaction) {
           return Categories.update({
             "category_id": transaction.category_id

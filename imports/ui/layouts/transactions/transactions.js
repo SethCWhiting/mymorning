@@ -32,9 +32,11 @@ Template.transactions.helpers({
 
 Template.transactions.events({
   'change select'(e) {
-    console.log(e.currentTarget.value);
-    Session.set('selected_name', this.name);
-    Session.set('selected_category', e.currentTarget.selectedOptions[0].label);
-    $('#category-modal').modal('show');
+    Session.set('selected_transaction', this.transaction_id);
+    Session.set('selected_category', e.currentTarget.value);
+    $('#category-modal').modal('show').on('hide.bs.modal', function (e) {
+      Session.set('selected_transaction', null);
+      Session.set('selected_category', null);
+    });;
   }
 });

@@ -1,3 +1,5 @@
 node_modules/
 dev.json
+dev.sh
+sand.sh
 sandbox.json
