@@ -9,22 +9,29 @@ Template.categoryModal.helpers({
   selected_name: function() {
     var trans = Transactions.findOne({'transaction_id': Session.get('selected_transaction')});
     if (trans) {
-      return trans.name;      
+      return trans.name;
     }
   },
   selected_category: function() {
     var cat = Categories.findOne({'category_id': Session.get('selected_category')});
     if (cat) {
-      return cat.category.join(' > ');      
+      return cat.category.join(' > ');
     }
   }
 });
 
 Template.categoryModal.events({
   'click #change-this'() {
-    console.log('this');
+    Meteor.call('transactions.updateCategory', Session.get('selected_transaction'), Session.get('selected_category'), function(err, res) {
+      if (err) {console.log(err);}
+      $('#category-modal').modal('hide');
+    });
   },
   'click #change-all'() {
-    console.log('all');
+    var name = Transactions.findOne({'transaction_id': Session.get('selected_transaction')}).name;
+    Meteor.call('transactions.updateCategories', name, Session.get('selected_category'), function(err, res) {
+      if (err) {console.log(err);}
+      $('#category-modal').modal('hide');
+    });
   }
 });

@@ -33,7 +33,7 @@ Meteor.methods({
           return error;
         }
         transactionsResponse.transactions.forEach(function(transaction) {
-          return Categories.update({
+          Categories.update({
             "category_id": transaction.category_id
           }, {
             "category": transaction.category,
@@ -44,12 +44,13 @@ Meteor.methods({
           });
 
           return Transactions.update({
-            "transaction_id": transaction.transaction_id
+            "transaction_id": transaction.transaction_id,
+            "updatedAt": { $exists: false }
           }, {
             "account_id": transaction.account_id,
             "account_owner": Meteor.userId(),
             "amount": transaction.amount,
-            "category": transaction.category,
+            // "category": transaction.category,
             "category_id": transaction.category_id,
             "date": transaction.date,
             "iso_currency_code": transaction.iso_currency_code,
@@ -92,6 +93,30 @@ Meteor.methods({
     return Transactions.find({
       "account_owner": owner,
       "date": date
+    });
+  },
+  'transactions.updateCategory'(trans, cat) {
+    return Transactions.update({
+      "transaction_id": trans
+    }, {
+      $set: {
+        "category_id": cat,
+        "updatedAt": new Date()
+      }
+    });
+  },
+  'transactions.updateCategories'(name, cat) {
+    return Transactions.update({
+      "account_owner": Meteor.userId(),
+      "name": name
+    }, {
+      $set: {
+        "category_id": cat,
+        "updatedAt": new Date()
+      }
+    },
+    {
+      "multi": true
     });
   }
 });
